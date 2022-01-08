@@ -1,16 +1,18 @@
 from pathlib import Path
 import environ
+import os
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
 environ.Env.read_env()
 
-SECRET_KEY = env.str('SECRET_KEY')
+SECRET_KEY = env.str('SECRET_KEY', default='temp__$7lwzwhsm+fppi2!ww&g50^8*qn@y1=mr3')
+DEBUG = bool(int(os.environ.get('DEBUG', 1)))
 
-DEBUG = env.bool('DEBUG', default=True)
-
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -106,6 +108,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
